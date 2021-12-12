@@ -64,11 +64,13 @@ Color *evaluateOneCell(Image *image, int row, int col, uint32_t rule)
 			aliveNeighboursB++;
 		}
 	}
-	
+
 	// 自己为1或者0，乘上9加上周围live的数量，在
 	idxR = 9 * isAliveR + aliveNeighboursR;
 	idxG = 9 * isAliveG + aliveNeighboursG;
 	idxB = 9 * isAliveB + aliveNeighboursB;
+
+	// printf("%d %d %d", idxR, idxG, idxB);
 
 	if (rule & (1<<idxR)) {
 		nextState->R = 255;
