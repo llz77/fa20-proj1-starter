@@ -41,24 +41,26 @@ Image *readData(char *filename)
 		return NULL;
 	}
 
-	fscanf(imagefile, "%u", &img->cols);	
+	fscanf(imagefile, "%u", &img->cols);
 	fscanf(imagefile, "%u", &img->rows);
 	fscanf(imagefile, "%u", &maxcolor);
 
-	if (img->cols < 0 || img->rows < 0 || maxcolor != 255) {
+	if (img->cols < 0 || img-rows < 0 || maxcolor != 255) {
 		printf("wrong ppm format\n");
 		return NULL;
-	}
+	}	
 
 	int totpixels = img->cols * img->rows;
 	img->image = (Color**) malloc(sizeof(Color*) * totpixels);
 	for (int i = 0; i < totpixels; i++) {
 		*(img->image + i) = (Color*) malloc(sizeof(Color));
-		Color* pixel = *(img->image + i);
+		Color* pixel = *(img->image + i );
 		fscanf(imagefile, "%hhu %hhu %hhu", &pixel->R, &pixel->G, &pixel->B);
+		
 	}
 	fclose(imagefile);
 	return img;
+
 }
 
 //Given an image, prints to stdout (e.g. with printf) a .ppm P3 file with the image's data.
@@ -82,10 +84,9 @@ void freeImage(Image *image)
 {
 	//YOUR CODE HERE
 	int totpixels = image->rows * image->cols;
-	for(int i = 0; i < totpixels; i++) {
+	for (int i = 0; i < totpixels; i++) {
 		free(*(image->image+i));
 	}
-
 	free(image->image);
 	free(image);
 }
