@@ -5,7 +5,7 @@
 ** DESCRIPTION: CS61C Fall 2020 Project 1
 **
 ** AUTHOR:      Justin Yokota - Starter Code
-**				YOUR NAME HERE
+**				llz77
 **
 **
 ** DATE:        2020-08-23
@@ -39,28 +39,25 @@ Color *evaluateOneCell(Image *image, int row, int col, uint32_t rule)
 {
 	//YOUR CODE HERE
 	Color* nextState = (Color*) malloc(sizeof(Color));
-	int aliveNeighboursR=0, aliveNeighboursG=0, aliveNeighboursB=0;
-	int isAliveR, isAliveG, isAliveB;
+	int aliveNeighboursR = 0;
+	int aliveNeighboursG = 0;
+	int aliveNeighboursB = 0;
 	int idxR, idxG, idxB;
 
-	// aliveNeighboursR = 0;
-	// 判断当前cell是live还是dead
+	isAliveR = (*(image->image + row * image->cols + col))->R = 255;
+	isAliveG = (*(image->image + row * image->cols + col))->G = 255;
+	isAliveB = (*(image->image + row * image->cols + col))->B = 255;
 
-	isAliveR = (*(image->image + row * image->cols + col))->R == 255;
-	isAliveG = (*(image->image + row * image->cols + col))->G == 255;
-	isAliveB = (*(image->image + row * image->cols + col))->B == 255;
-
-	// 对8个相邻节点进行处理
 	for (int i = 0; i < 8; i++) {
 		int newrow = ring(row + dx[i], image->rows);
 		int newcol = ring(col + dy[i], image->cols);
-		if ((*(image->image + newrow * image->cols + newcol))->R == 255) {
+		if ((*(image->image + newrow * image->cols + newcol)) ->R == 255) {
 			aliveNeighboursR++;
 		}
-		if ((*(image->image + newrow * image->cols + newcol))->G == 255) {
+		if ((*(image->image + newrow * image->cols + newcol)) ->G == 255) {
 			aliveNeighboursG++;
 		}
-		if ((*(image->image + newrow * image->cols + newcol))->B == 255) {
+		if ((*(image->image + newrow * image->cols + newcol)) ->B == 255) {
 			aliveNeighboursB++;
 		}
 	}
@@ -131,11 +128,14 @@ int main(int argc, char **argv)
 		printf("Usage:./gameOfLife filename rule\nfilename is an ASCII PPM file (type P3) with maximum value 255.\nrule is a hex number beginning with 0x; Life is 0x1808.");
 		return 0;
 	}
-	Image* img = readData(argv[1]);
+
+	Image *img = readData(argv[1]);
 	uint32_t rule = strtol(argv[2], NULL, 16);
 	Image* nextImg = life(img, rule);
+
 	writeData(nextImg);
 	freeImage(img);
 	freeImage(nextImg);
-	return 0;
+	return 0;	
+
 }
